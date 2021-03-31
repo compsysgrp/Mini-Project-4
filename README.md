@@ -1,1 +1,14 @@
-# Mini-Project-4
+## Running the code
+
+
+## Data Structure
+
+
+## Functions:
+### Main:
+
+### Encode:
+
+### Decode:
+
+## Conclusions
