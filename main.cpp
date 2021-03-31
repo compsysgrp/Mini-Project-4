@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <chrono>
 using namespace std;
 
 string line;
@@ -11,6 +12,7 @@ string input;
 int total = 0;
 map<string, int> locations;
 map<int, string> decoder;
+
 
 void encode()
 {
@@ -63,6 +65,7 @@ void encode()
      cout << "Encoded file created. Named: \"Encoded.txt\"" << endl;
 }
 
+
 void decode()
 {
     ofstream outfile3("Decoded.txt");
@@ -111,7 +114,7 @@ void decode()
 
 int main()
 {
-
+    
     cout << "Enter input file name: ";
     cin >> input;
     ifstream infile(input);
@@ -121,13 +124,23 @@ int main()
         cerr << "Unable to open file";
         exit(1);   // call system to stop
     }
-    
+
+    auto encoding_start = std::chrono::steady_clock::now();
     encode();
+    auto encoding_end = std::chrono::steady_clock::now();
     
+    std::chrono::duration<double> elapsed_seconds = encoding_end - encoding_start;
+    cout << "Encoding took " << elapsed_seconds.count() << " seconds " << endl;
+
     cout << "Type data to check from encoded file total number of occurences: ";
     cin >> input;
     
+    auto decoding_start = std::chrono::steady_clock::now();
     decode();
+    auto decoding_end = std::chrono::steady_clock::now();
+
+    elapsed_seconds = decoding_end - decoding_start;
+    cout << "Decoding took " << elapsed_seconds.count() << " seconds " << endl;
     
-    cout << "Total number of times data item, " << input << ", occurs: " << total << endl;
+    cout << "Total number of times data item, \"" << input << "\", occurs: " << total << endl;
 }
